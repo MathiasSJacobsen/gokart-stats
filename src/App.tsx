@@ -106,7 +106,7 @@ const getTeamFastestLap = (data: SessionData[]) => {
 function App() {
   const data = transformLapData(db);
 
-  const [bestTeamLap, setBestTeamLap] = useState(getTeamFastestLap(data));
+  const bestTeamLap = getTeamFastestLap(data);
 
   return (
     <div>
