@@ -73,6 +73,7 @@ export const Stats = ({ user }: Props) => {
 };
 
 const StatContainer = styled.div`
+  grid-column: span 2;
   display: flex;
   flex-direction: column;
   margin: 1.5rem;

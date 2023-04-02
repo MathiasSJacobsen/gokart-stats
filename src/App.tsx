@@ -134,9 +134,11 @@ function App() {
             <Brush />
           </LineChart>
         </TeamContainer>
-        {data.map((e) => (
-          <Stats key={e.name} user={e} />
-        ))}
+        <PersonalStatsContainer>
+          {data.map((e) => (
+            <Stats key={e.name} user={e} />
+          ))}
+        </PersonalStatsContainer>
       </StatsContainer>
     </div>
   );
@@ -172,6 +174,12 @@ const StatsContainer = styled.div`
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+`;
+
+const PersonalStatsContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
 `;
 
 export default App;
