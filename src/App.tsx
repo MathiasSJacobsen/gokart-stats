@@ -13,6 +13,8 @@ import {
   LineChart,
   Brush,
 } from "recharts";
+import { useEffect, useState } from "react";
+import { getFastestLap } from "./dataCrunshing";
 
 const mapLapTimeToNumber = (lapTime: string) => {
   if (lapTime.length < 7) {
@@ -75,45 +77,65 @@ function transformLapData(data: any[]): SessionData[] {
   return result;
 }
 
+const getTeamLapData = () => {
+  let c = -1;
+  return db.flatMap((e) => {
+    const times = e.laps.map(mapLapTimeToNumber);
+    return times.map((m) => {
+      c += 1;
+      return {
+        name: `Lap ${c}`,
+        race: m,
+      };
+    });
+  });
+};
+const getTeamFastestLap = (data: SessionData[]) => {
+  let best: { time: number; name: string } = { name: "test", time: 1000 };
+  data.forEach((e) => {
+    const fastest = getFastestLap(e.laps);
+    if (!best || best.time > fastest) {
+      best = {
+        name: e.name,
+        time: fastest,
+      };
+    }
+  });
+  return best;
+};
 function App() {
   const data = transformLapData(db);
 
-  const test = () => {
-    let c = -1;
-    return db.flatMap((e) => {
-      const times = e.laps.map(mapLapTimeToNumber);
-      return times.map((m) => {
-        c += 1;
-        return {
-          name: `Lap ${c}`,
-          race: m,
-        };
-      });
-    });
-  };
+  const [bestTeamLap, setBestTeamLap] = useState(getTeamFastestLap(data));
 
   return (
     <div>
       <Header />
-      <StatsContainer>
-        <LineChart
-          width={1000}
-          height={300}
-          data={test()}
-          margin={{ top: 5, right: 20, bottom: 5, left: 0 }}
-        >
-          <Line type="monotone" dataKey="race" dot={false} />
 
-          {/* <ReferenceLine y={average} stroke="#8bffde9f" /> */}
-          <Legend />
-          <CartesianGrid stroke="#ccc" strokeDasharray="7 7" />
-          <XAxis dataKey="name" />
-          <YAxis label={{ value: "Sec", angle: -90 }} />
-          <Tooltip />
-          <Brush />
-        </LineChart>
+      <StatsContainer>
+        <TeamContainer>
+          <TeamStats>
+            <span>{`Best lap: ${bestTeamLap.name} - ${bestTeamLap.time}`}</span>
+            <span>klejfwp</span>
+          </TeamStats>
+
+          <LineChart
+            width={1000}
+            height={300}
+            data={getTeamLapData()}
+            margin={{ top: 5, right: 20, bottom: 5, left: 0 }}
+          >
+            <Line type="monotone" dataKey="race" dot={false} />
+            <Legend />
+            <CartesianGrid stroke="#ccc" strokeDasharray="7 7" />
+            <XAxis dataKey="name" />
+            <YAxis label={{ value: "Sec", angle: -90 }} domain={[32]} />
+            <Tooltip />
+            <Brush />
+          </LineChart>
+        </TeamContainer>
         {data.map((e) => (
-          <Stats user={e} />
+          <Stats key={e.name} user={e} />
         ))}
       </StatsContainer>
     </div>
@@ -127,6 +149,18 @@ const Header = () => {
     </HeaderContainer>
   );
 };
+
+const TeamContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const TeamStats = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 0 0 0 4rem;
+  margin-bottom: 0.5rem;
+`;
 
 const HeaderContainer = styled.div`
   width: 100%;
