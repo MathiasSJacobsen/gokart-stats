@@ -1,4 +1,3 @@
-import { type } from "@testing-library/user-event/dist/type";
 import React, { useEffect, useState } from "react";
 import {
   LineChart,
@@ -17,6 +16,7 @@ import {
   getPitstop,
 } from "../dataCrunshing";
 import { SessionData, Session } from "../Types";
+import { HeaderStat } from "./HeaderStat";
 
 type Props = {
   user: SessionData;
@@ -30,7 +30,8 @@ const StatContainer = styled.div`
   padding: 0 2rem 1rem 0;
   border: solid 1px;
 `;
-export const PersonalStat = ({ user }: Props) => {
+
+const PersonalStat = ({ user }: Props) => {
   const [data, setData] = useState(user);
 
   useEffect(() => {
@@ -45,15 +46,12 @@ export const PersonalStat = ({ user }: Props) => {
 
   return (
     <StatContainer>
-      <HeaderStats>
-        <Name>{user.name}</Name>
-        <MetaStat>
-          <span>Best lap: {fastestLap}</span>
-          <span>Average: {average.toFixed(3)}</span>
-          <span>Pitstop: {pitstop}</span>
-        </MetaStat>
-      </HeaderStats>
-
+      <HeaderStat
+        average={average}
+        fastestLap={fastestLap}
+        pitstop={pitstop}
+        username={user.name}
+      />
       <LineChart
         width={500}
         height={300}
@@ -85,14 +83,4 @@ export const PersonalStat = ({ user }: Props) => {
   );
 };
 
-const Name = styled.h3``;
-
-const HeaderStats = styled.div`
-  padding-left: 4rem;
-  margin-bottom: 1rem;
-`;
-
-const MetaStat = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
+export default PersonalStat;

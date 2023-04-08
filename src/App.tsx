@@ -1,6 +1,5 @@
 import styled from "styled-components/macro";
 
-import { Stats } from "./Stats";
 import db from "./db/db.json";
 import {
   Line,
@@ -13,6 +12,7 @@ import {
   Brush,
 } from "recharts";
 import { transformLapData, getTeamFastestLap, getTeamLapData } from "./utils";
+import PersonalStat from "./personalStats/PersonalStat";
 
 function App() {
   const data = transformLapData(db);
@@ -27,7 +27,7 @@ function App() {
         <TeamContainer>
           <TeamStats>
             <span>{`Best lap: ${bestTeamLap.name} - ${bestTeamLap.time}`}</span>
-            <span>klejfwp</span>
+            <span>{`Number of laps: 196`}</span>
           </TeamStats>
 
           <LineChart
@@ -47,7 +47,7 @@ function App() {
         </TeamContainer>
         <PersonalStatsContainer>
           {data.map((e) => (
-            <Stats key={e.name} user={e} />
+            <PersonalStat key={e.name} user={e} />
           ))}
         </PersonalStatsContainer>
       </StatsContainer>
