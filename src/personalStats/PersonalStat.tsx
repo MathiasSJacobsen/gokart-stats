@@ -1,3 +1,4 @@
+import { type } from "@testing-library/user-event/dist/type";
 import React, { useEffect, useState } from "react";
 import {
   LineChart,
@@ -10,14 +11,26 @@ import {
   ReferenceLine,
 } from "recharts";
 import styled from "styled-components/macro";
-import { getFastestLap, getAverageLapsTime, getPitstop } from "./dataCrunshing";
-import { SessionData, Session } from "./Types";
+import {
+  getFastestLap,
+  getAverageLapsTime,
+  getPitstop,
+} from "../dataCrunshing";
+import { SessionData, Session } from "../Types";
 
 type Props = {
   user: SessionData;
 };
 
-export const Stats = ({ user }: Props) => {
+const StatContainer = styled.div`
+  grid-column: span 2;
+  display: flex;
+  flex-direction: column;
+  margin: 1.5rem;
+  padding: 0 2rem 1rem 0;
+  border: solid 1px;
+`;
+export const PersonalStat = ({ user }: Props) => {
   const [data, setData] = useState(user);
 
   useEffect(() => {
@@ -71,15 +84,6 @@ export const Stats = ({ user }: Props) => {
     </StatContainer>
   );
 };
-
-const StatContainer = styled.div`
-  grid-column: span 2;
-  display: flex;
-  flex-direction: column;
-  margin: 1.5rem;
-  padding: 0 2rem 1rem 0;
-  border: solid 1px;
-`;
 
 const Name = styled.h3``;
 
