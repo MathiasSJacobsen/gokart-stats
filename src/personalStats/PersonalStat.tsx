@@ -50,7 +50,6 @@ const PersonalStat = ({ user }: Props) => {
   }, [data]);
 
   useEffect(() => {
-    console.log("heihei");
     setChartHeight(vertical > 767 ? 300 : 200);
     setChartWidth(vertical > 767 ? 500 : 300);
   }, [vertical]);

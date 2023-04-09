@@ -12,11 +12,19 @@ import styled from "styled-components";
 import PersonalStat from "../personalStats/PersonalStat";
 import db from "../db/db.json";
 import { getTeamFastestLap, getTeamLapData, transformLapData } from "../utils";
+import { useEffect, useState } from "react";
+import { useWindowSize } from "../hooks/useWindowSize";
 
 type Props = {};
 
 const Landing = (props: Props) => {
   const data = transformLapData(db);
+  const [windowWidth, _] = useWindowSize();
+  const [chartWidth, setChartWidth] = useState(0);
+
+  useEffect(() => {
+    setChartWidth(windowWidth > 767 ? 1000 : 350);
+  }, [windowWidth]);
 
   const bestTeamLap = getTeamFastestLap(data);
 
@@ -31,8 +39,8 @@ const Landing = (props: Props) => {
             <span>{`Number of laps: 196`}</span>
           </TeamStats>
 
-          {/* <LineChart
-            width={1000}
+          <LineChart
+            width={chartWidth}
             height={300}
             data={getTeamLapData()}
             margin={{ top: 5, right: 20, bottom: 5, left: 0 }}
@@ -44,7 +52,7 @@ const Landing = (props: Props) => {
             <YAxis label={{ value: "Sec", angle: -90 }} domain={[32]} />
             <Tooltip />
             <Brush />
-          </LineChart> */}
+          </LineChart>
         </TeamContainer>
         <PersonalStatsContainer>
           {data.map((e) => (
