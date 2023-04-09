@@ -13,6 +13,7 @@ import {
 } from "recharts";
 import { transformLapData, getTeamFastestLap, getTeamLapData } from "./utils";
 import PersonalStat from "./personalStats/PersonalStat";
+import { Helmet } from "react-helmet-async";
 
 function App() {
   const data = transformLapData(db);
@@ -21,6 +22,9 @@ function App() {
 
   return (
     <div>
+      <Helmet>
+        <title>Bekk - gokart</title>
+      </Helmet>
       <Header />
 
       <StatsContainer>
