@@ -31,7 +31,7 @@ const Landing = (props: Props) => {
             <span>{`Number of laps: 196`}</span>
           </TeamStats>
 
-          <LineChart
+          {/* <LineChart
             width={1000}
             height={300}
             data={getTeamLapData()}
@@ -44,7 +44,7 @@ const Landing = (props: Props) => {
             <YAxis label={{ value: "Sec", angle: -90 }} domain={[32]} />
             <Tooltip />
             <Brush />
-          </LineChart>
+          </LineChart> */}
         </TeamContainer>
         <PersonalStatsContainer>
           {data.map((e) => (

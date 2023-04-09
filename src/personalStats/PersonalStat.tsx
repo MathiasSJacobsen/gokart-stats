@@ -15,6 +15,7 @@ import {
   getAverageLapsTime,
   getPitstop,
 } from "../dataCrunshing";
+import { useWindowSize } from "../hooks/useWindowSize";
 import { SessionData, Session } from "../Types";
 import { HeaderStat } from "./HeaderStat";
 
@@ -29,16 +30,30 @@ const StatContainer = styled.div`
   margin: 1.5rem;
   padding: 0 2rem 1rem 0;
   border: solid 1px;
+
+  @media (max-width: 767px) {
+    grid-column: span 4;
+  }
 `;
 
 const PersonalStat = ({ user }: Props) => {
   const [data, setData] = useState(user);
+
+  const [vertical] = useWindowSize();
+  const [chartHeight, setChartHeight] = useState(0);
+  const [chartWidth, setChartWidth] = useState(0);
 
   useEffect(() => {
     setFastestLap(getFastestLap(data.laps));
     setAverage(getAverageLapsTime(data.laps));
     setPitstop(getPitstop(data.laps));
   }, [data]);
+
+  useEffect(() => {
+    console.log("heihei");
+    setChartHeight(vertical > 767 ? 300 : 200);
+    setChartWidth(vertical > 767 ? 500 : 300);
+  }, [vertical]);
 
   const [fastestLap, setFastestLap] = useState(0);
   const [average, setAverage] = useState(0);
@@ -53,8 +68,8 @@ const PersonalStat = ({ user }: Props) => {
         username={user.name}
       />
       <LineChart
-        width={500}
-        height={300}
+        width={chartWidth}
+        height={chartHeight}
         data={
           data.laps.some((e) => Session.SESSION_TWO in e)
             ? data.laps
