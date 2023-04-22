@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components/macro";
-import { BsPersonCircle } from "react-icons/bs";
 import {
   getAverageSessionLapTime,
   getPitstop,
@@ -38,16 +37,6 @@ export const HeaderStat = ({ session, laps, username }: Props) => {
   );
 };
 
-const Name = styled.div`
-  font-size: 2em;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin: 1rem;
-`;
-const MySpan = styled.span`
-  margin-left: 1rem;
-`;
 const KeyStat = styled.span`
   margin-right: 1rem;
 `;
