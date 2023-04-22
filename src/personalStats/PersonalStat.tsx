@@ -17,6 +17,7 @@ import {
 } from "../dataCrunshing";
 import { useWindowSize } from "../hooks/useWindowSize";
 import { SessionData, Session } from "../Types";
+import { sessionEnumToSessionNr } from "../utils";
 import { HeaderStat } from "./HeaderStat";
 
 type Props = {
@@ -61,40 +62,62 @@ const PersonalStat = ({ user }: Props) => {
   return (
     <StatContainer>
       <HeaderStat
+        session={sessionEnumToSessionNr(Session.SESSION_ONE)}
         average={average}
         fastestLap={fastestLap}
         pitstop={pitstop}
         username={user.name}
       />
-      <LineChart
-        width={chartWidth}
-        height={chartHeight}
-        data={
-          data.laps.some((e) => Session.SESSION_TWO in e)
-            ? data.laps
-                .filter((e) => e.SESSION_ONE! < 60)
-                .filter((e) => e.SESSION_TWO! < 60)
-            : data.laps.filter((e) => e.SESSION_ONE! < 60)
-        }
-        margin={{ top: 5, right: 20, bottom: 5, left: 0 }}
-      >
-        <Line type="monotone" dataKey={Session.SESSION_ONE} stroke="#bf84d8" />
-        {data.laps.some((e) => Session.SESSION_TWO in e) && (
+      {data.laps[0].SESSION_TWO && (
+        <HeaderStat
+          session={sessionEnumToSessionNr(Session.SESSION_TWO)}
+          average={average}
+          fastestLap={fastestLap}
+          pitstop={pitstop}
+          username={user.name}
+        />
+      )}
+      <ChartContainer>
+        <LineChart
+          width={chartWidth}
+          height={chartHeight}
+          data={
+            data.laps.some((e) => Session.SESSION_TWO in e)
+              ? data.laps
+                  .filter((e) => e.SESSION_ONE! < 60)
+                  .filter((e) => e.SESSION_TWO! < 60)
+              : data.laps.filter((e) => e.SESSION_ONE! < 60)
+          }
+          margin={{ top: 5, right: 20, bottom: 5, left: 0 }}
+        >
           <Line
             type="monotone"
-            dataKey={Session.SESSION_TWO}
-            stroke="#8884d8"
+            dot={false}
+            dataKey={Session.SESSION_ONE}
+            stroke="#bf84d8"
           />
-        )}
-        <ReferenceLine y={average} stroke="#8bffde9f" />
-        <Legend />
-        <CartesianGrid stroke="#ccc" strokeDasharray="7 7" />
-        <XAxis dataKey="name" />
-        <YAxis label={{ value: "Sec", angle: -90 }} domain={[33]} />
-        <Tooltip />
-      </LineChart>
+          {data.laps.some((e) => Session.SESSION_TWO in e) && (
+            <Line
+              dot={false}
+              type="monotone"
+              dataKey={Session.SESSION_TWO}
+              stroke="#82ca9d"
+            />
+          )}
+          <ReferenceLine y={average} stroke="#8bffde9f" />
+          <Legend />
+          <CartesianGrid stroke="#ccc" strokeDasharray="7 7" />
+          <XAxis dataKey="name" />
+          <YAxis label={{ value: "Sec", angle: -90 }} domain={[33]} />
+          <Tooltip />
+        </LineChart>
+      </ChartContainer>
     </StatContainer>
   );
 };
 
 export default PersonalStat;
+
+const ChartContainer = styled.div`
+  margin-top: auto;
+`;

@@ -30,8 +30,6 @@ const Landing = (props: Props) => {
 
   return (
     <>
-      <Header />
-
       <StatsContainer>
         <TeamContainer>
           <TeamStats>
@@ -64,14 +62,6 @@ const Landing = (props: Props) => {
   );
 };
 
-const Header = () => {
-  return (
-    <HeaderContainer>
-      <h1>Bekk Gokart</h1>
-    </HeaderContainer>
-  );
-};
-
 const TeamContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -82,12 +72,6 @@ const TeamStats = styled.div`
   flex-direction: column;
   padding: 0 0 0 4rem;
   margin-bottom: 0.5rem;
-`;
-
-const HeaderContainer = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: center;
 `;
 
 const StatsContainer = styled.div`

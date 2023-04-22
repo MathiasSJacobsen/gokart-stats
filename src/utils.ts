@@ -90,3 +90,14 @@ export const getTeamFastestLap = (data: SessionData[]) => {
   });
   return best;
 };
+
+export const sessionEnumToSessionNr = (s: Session): number => {
+  switch (s) {
+    case Session.SESSION_ONE:
+      return 1;
+    case Session.SESSION_TWO:
+      return 2;
+    default:
+      throw new Error("Invalid session selected");
+  }
+};

@@ -16,7 +16,7 @@ export type SessionData = {
 };
 
 export type ChartType = {
-  name: string;
   [Session.SESSION_ONE]?: number;
   [Session.SESSION_TWO]?: number;
+  name: string;
 }[];
