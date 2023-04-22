@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { BsPersonCircle } from "react-icons/bs";
 import {
   LineChart,
   Line,
@@ -10,11 +11,6 @@ import {
   ReferenceLine,
 } from "recharts";
 import styled from "styled-components/macro";
-import {
-  getFastestLap,
-  getAverageLapsTime,
-  getPitstop,
-} from "../dataCrunshing";
 import { useWindowSize } from "../hooks/useWindowSize";
 import { SessionData, Session } from "../Types";
 import { sessionEnumToSessionNr } from "../utils";
@@ -45,9 +41,7 @@ const PersonalStat = ({ user }: Props) => {
   const [chartWidth, setChartWidth] = useState(0);
 
   useEffect(() => {
-    setFastestLap(getFastestLap(data.laps));
-    setAverage(getAverageLapsTime(data.laps));
-    setPitstop(getPitstop(data.laps));
+    //setAverage(getAverageSessionLapTime(data.laps));
   }, [data]);
 
   useEffect(() => {
@@ -55,28 +49,30 @@ const PersonalStat = ({ user }: Props) => {
     setChartWidth(vertical > 767 ? 500 : 300);
   }, [vertical]);
 
-  const [fastestLap, setFastestLap] = useState(0);
   const [average, setAverage] = useState(0);
-  const [pitstop, setPitstop] = useState(0);
 
   return (
     <StatContainer>
-      <HeaderStat
-        session={sessionEnumToSessionNr(Session.SESSION_ONE)}
-        average={average}
-        fastestLap={fastestLap}
-        pitstop={pitstop}
-        username={user.name}
-      />
-      {data.laps[0].SESSION_TWO && (
+      <HeaderContainer>
+        <Name>
+          <BsPersonCircle />
+          <MySpan>{data.name}</MySpan>
+        </Name>
         <HeaderStat
-          session={sessionEnumToSessionNr(Session.SESSION_TWO)}
-          average={average}
-          fastestLap={fastestLap}
-          pitstop={pitstop}
+          session={sessionEnumToSessionNr(Session.SESSION_ONE)}
+          laps={data.laps.map((e) => e.SESSION_ONE) as number[]}
           username={user.name}
         />
-      )}
+        {data.laps[0].SESSION_TWO ? (
+          <HeaderStat
+            session={sessionEnumToSessionNr(Session.SESSION_TWO)}
+            laps={data.laps.map((e) => e.SESSION_TWO) as number[]}
+            username={user.name}
+          />
+        ) : (
+          <div></div>
+        )}
+      </HeaderContainer>
       <ChartContainer>
         <LineChart
           width={chartWidth}
@@ -117,6 +113,31 @@ const PersonalStat = ({ user }: Props) => {
 };
 
 export default PersonalStat;
+
+const HeaderContainer = ({
+  children,
+  classname,
+}: {
+  children: React.ReactElement[];
+  classname?: string;
+}) => {
+  return <StyledContainer className={classname}>{children}</StyledContainer>;
+};
+
+const StyledContainer = styled.div`
+  margin: 1rem 1rem 0 1rem;
+`;
+
+const Name = styled.div`
+  font-size: 2em;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 1rem;
+`;
+const MySpan = styled.span`
+  margin-left: 1rem;
+`;
 
 const ChartContainer = styled.div`
   margin-top: auto;

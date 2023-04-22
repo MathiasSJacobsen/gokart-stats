@@ -1,30 +1,31 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components/macro";
 import { BsPersonCircle } from "react-icons/bs";
+import {
+  getAverageSessionLapTime,
+  getPitstop,
+  getSessionFastestLap,
+} from "../dataCrunshing";
 
 type Props = {
-  average: number;
-  fastestLap: number;
-  pitstop: number;
+  laps: number[];
   username: string;
   session: number;
 };
 
-export const HeaderStat = ({
-  session,
-  average,
-  fastestLap,
-  pitstop,
-  username,
-}: Props) => {
+export const HeaderStat = ({ session, laps, username }: Props) => {
+  const [average, setAverage] = useState(0);
+  const [fastestLap, setFastestLap] = useState(0);
+  const [pitstop, setPitstop] = useState(0);
+
+  useEffect(() => {
+    setFastestLap(getSessionFastestLap(laps));
+    setAverage(getAverageSessionLapTime(laps));
+    setPitstop(getPitstop(laps));
+  }, [laps]);
+
   return (
     <HeaderStats>
-      {session === 1 && (
-        <Name>
-          <BsPersonCircle />
-          <MySpan>{username}</MySpan>
-        </Name>
-      )}
       <SessionData>
         <h4>Session {session}:</h4>
         <MetaStat>
@@ -44,12 +45,11 @@ const Name = styled.div`
   align-items: center;
   margin: 1rem;
 `;
-const KeyStat = styled.span`
-  margin-right: 1rem;
-`;
-
 const MySpan = styled.span`
   margin-left: 1rem;
+`;
+const KeyStat = styled.span`
+  margin-right: 1rem;
 `;
 
 const HeaderStats = styled.div`

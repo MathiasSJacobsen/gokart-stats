@@ -33,7 +33,7 @@ const Landing = (props: Props) => {
       <StatsContainer>
         <TeamContainer>
           <TeamStats>
-            <span>{`Best lap: ${bestTeamLap.name} - ${bestTeamLap.time}`}</span>
+            <span>{`Best lap: ${bestTeamLap.name} \u2014  ${bestTeamLap.time}`}</span>
             <span>{`Number of laps: 196`}</span>
           </TeamStats>
 
