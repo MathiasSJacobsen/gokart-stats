@@ -11,6 +11,7 @@ import {
   ReferenceLine,
 } from "recharts";
 import styled from "styled-components/macro";
+import { getAverageSessionLapTime } from "../dataCrunshing";
 import { useWindowSize } from "../hooks/useWindowSize";
 import { SessionData, Session } from "../Types";
 import { sessionEnumToSessionNr } from "../utils";
@@ -20,19 +21,6 @@ type Props = {
   user: SessionData;
 };
 
-const StatContainer = styled.div`
-  grid-column: span 2;
-  display: flex;
-  flex-direction: column;
-  margin: 1.5rem;
-  padding: 0 2rem 1rem 0;
-  border: solid 1px;
-
-  @media (max-width: 767px) {
-    grid-column: span 4;
-  }
-`;
-
 const PersonalStat = ({ user }: Props) => {
   const [data, setData] = useState(user);
 
@@ -41,15 +29,9 @@ const PersonalStat = ({ user }: Props) => {
   const [chartWidth, setChartWidth] = useState(0);
 
   useEffect(() => {
-    //setAverage(getAverageSessionLapTime(data.laps));
-  }, [data]);
-
-  useEffect(() => {
     setChartHeight(vertical > 767 ? 300 : 200);
     setChartWidth(vertical > 767 ? 500 : 300);
   }, [vertical]);
-
-  const [average, setAverage] = useState(0);
 
   return (
     <StatContainer>
@@ -100,7 +82,6 @@ const PersonalStat = ({ user }: Props) => {
               stroke="#82ca9d"
             />
           )}
-          <ReferenceLine y={average} stroke="#8bffde9f" />
           <Legend />
           <CartesianGrid stroke="#ccc" strokeDasharray="7 7" />
           <XAxis dataKey="name" />
@@ -134,6 +115,9 @@ const Name = styled.div`
   flex-direction: row;
   align-items: center;
   margin: 1rem;
+  @media (max-width: 767px) {
+    font-size: 1.5em;
+  }
 `;
 const MySpan = styled.span`
   margin-left: 1rem;
@@ -141,4 +125,18 @@ const MySpan = styled.span`
 
 const ChartContainer = styled.div`
   margin-top: auto;
+`;
+
+const StatContainer = styled.div`
+  grid-column: span 2;
+  display: flex;
+  flex-direction: column;
+  margin: 1.5rem;
+  padding: 0 1rem 1rem 0;
+  border: solid 1px;
+
+  @media (max-width: 767px) {
+    grid-column: span 4;
+    padding: 0 0rem 1rem 0;
+  }
 `;
