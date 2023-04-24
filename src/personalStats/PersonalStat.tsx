@@ -8,10 +8,8 @@ import {
   XAxis,
   YAxis,
   Tooltip,
-  ReferenceLine,
 } from "recharts";
 import styled from "styled-components/macro";
-import { getAverageSessionLapTime } from "../dataCrunshing";
 import { useWindowSize } from "../hooks/useWindowSize";
 import { SessionData, Session } from "../Types";
 import { sessionEnumToSessionNr } from "../utils";
@@ -22,7 +20,7 @@ type Props = {
 };
 
 const PersonalStat = ({ user }: Props) => {
-  const [data, setData] = useState(user);
+  const [data] = useState(user);
 
   const [vertical] = useWindowSize();
   const [chartHeight, setChartHeight] = useState(0);

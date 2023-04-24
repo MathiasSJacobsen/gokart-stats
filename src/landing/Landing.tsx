@@ -19,7 +19,7 @@ type Props = {};
 
 const Landing = (props: Props) => {
   const data = transformLapData(db);
-  const [windowWidth, _] = useWindowSize();
+  const [windowWidth] = useWindowSize();
   const [chartWidth, setChartWidth] = useState(0);
 
   useEffect(() => {
