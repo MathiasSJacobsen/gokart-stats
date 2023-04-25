@@ -39,13 +39,13 @@ const PersonalStat = ({ user }: Props) => {
           <MySpan>{data.name}</MySpan>
         </Name>
         <HeaderStat
-          session={sessionEnumToSessionNr(Session.SESSION_ONE)}
+          heat={sessionEnumToSessionNr(Session.SESSION_ONE)}
           laps={data.laps.map((e) => e.SESSION_ONE) as number[]}
           username={user.name}
         />
         {data.laps[0].SESSION_TWO ? (
           <HeaderStat
-            session={sessionEnumToSessionNr(Session.SESSION_TWO)}
+            heat={sessionEnumToSessionNr(Session.SESSION_TWO)}
             laps={data.laps.map((e) => e.SESSION_TWO) as number[]}
             username={user.name}
           />

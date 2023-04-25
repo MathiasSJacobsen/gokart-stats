@@ -9,10 +9,10 @@ import {
 type Props = {
   laps: number[];
   username: string;
-  session: number;
+  heat: number;
 };
 
-export const HeaderStat = ({ session, laps, username }: Props) => {
+export const HeaderStat = ({ heat, laps, username }: Props) => {
   const [average, setAverage] = useState(0);
   const [fastestLap, setFastestLap] = useState(0);
   const [pitstop, setPitstop] = useState(0);
@@ -26,7 +26,7 @@ export const HeaderStat = ({ session, laps, username }: Props) => {
   return (
     <HeaderStats>
       <SessionData>
-        <h4>Session {session}:</h4>
+        <h4>Heat {heat}:</h4>
         <MetaStat>
           <KeyStat>Best lap: {fastestLap}</KeyStat>
           <KeyStat>Average: {average.toFixed(3)}</KeyStat>
