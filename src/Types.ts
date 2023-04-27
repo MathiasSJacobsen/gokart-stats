@@ -4,7 +4,7 @@ export type SessionDBData = {
   laps: string[] | number[];
 };
 
-export enum Session {
+export enum Heat {
   HEAT_ONE = "HEAT_ONE",
   HEAT_TWO = "HEAT_TWO",
 }
@@ -16,7 +16,7 @@ export type SessionData = {
 };
 
 export type ChartType = {
-  [Session.HEAT_ONE]?: number;
-  [Session.HEAT_TWO]?: number;
+  [Heat.HEAT_ONE]?: number;
+  [Heat.HEAT_TWO]?: number;
   name: string;
 }[];

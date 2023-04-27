@@ -1,5 +1,5 @@
 import { getFastestLap } from "./dataCrunshing";
-import { ChartType, Session, SessionData } from "./Types";
+import { ChartType, Heat, SessionData } from "./Types";
 import db from "./db/sessionOne.json";
 
 export const mapLapTimeToNumber = (lapTime: string) => {
@@ -11,18 +11,18 @@ export const mapLapTimeToNumber = (lapTime: string) => {
   }
 };
 
-export const transformData = (laps: string[], session: Session): ChartType => {
-  const x = session === Session.HEAT_ONE ? 1 : 2;
+export const transformData = (laps: string[], session: Heat): ChartType => {
+  const x = session === Heat.HEAT_ONE ? 1 : 2;
   return laps.map((e, i) => {
     if (x === 1) {
       return {
         name: `Lap ${i}`,
-        [Session.HEAT_ONE]: mapLapTimeToNumber(e),
+        [Heat.HEAT_ONE]: mapLapTimeToNumber(e),
       };
     } else {
       return {
         name: `Lap ${i}`,
-        [Session.HEAT_TWO]: mapLapTimeToNumber(e),
+        [Heat.HEAT_TWO]: mapLapTimeToNumber(e),
       };
     }
   });
@@ -37,18 +37,18 @@ export function transformLapData(data: any[]): SessionData[] {
       const newData: SessionData = {
         name,
         date,
-        laps: transformData(laps, Session.HEAT_ONE),
+        laps: transformData(laps, Heat.HEAT_ONE),
       };
       result.push(newData);
     } else {
       const person = result.find((e) => e.name === name) as SessionData;
-      const session_two = transformData(laps, Session.HEAT_TWO);
+      const session_two = transformData(laps, Heat.HEAT_TWO);
       const sessions = person.laps.map((e) => {
         const sessionOneValue = session_two.find((n) => n.name === e.name);
         // @TODO: Problem hvis du kjører en mer runde i andre session
         return {
           ...e,
-          SESSION_TWO: sessionOneValue?.HEAT_TWO,
+          HEAT_TWO: sessionOneValue?.HEAT_TWO,
         };
       });
 
@@ -91,11 +91,11 @@ export const getTeamFastestLap = (data: SessionData[]) => {
   return best;
 };
 
-export const sessionEnumToSessionNr = (s: Session): number => {
+export const sessionEnumToSessionNr = (s: Heat): number => {
   switch (s) {
-    case Session.HEAT_ONE:
+    case Heat.HEAT_ONE:
       return 1;
-    case Session.HEAT_TWO:
+    case Heat.HEAT_TWO:
       return 2;
     default:
       throw new Error("Invalid session selected");

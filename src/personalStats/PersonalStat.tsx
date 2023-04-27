@@ -11,7 +11,7 @@ import {
 } from "recharts";
 import styled from "styled-components/macro";
 import { useWindowSize } from "../hooks/useWindowSize";
-import { SessionData, Session } from "../Types";
+import { SessionData, Heat } from "../Types";
 import { sessionEnumToSessionNr } from "../utils";
 import { HeaderStat } from "./HeaderStat";
 
@@ -21,6 +21,7 @@ type Props = {
 
 const PersonalStat = ({ user }: Props) => {
   const [data] = useState(user);
+  console.log(data);
 
   const [vertical] = useWindowSize();
   const [chartHeight, setChartHeight] = useState(0);
@@ -39,13 +40,13 @@ const PersonalStat = ({ user }: Props) => {
           <MySpan>{data.name}</MySpan>
         </Name>
         <HeaderStat
-          heat={sessionEnumToSessionNr(Session.HEAT_ONE)}
+          heat={sessionEnumToSessionNr(Heat.HEAT_ONE)}
           laps={data.laps.map((e) => e.HEAT_ONE) as number[]}
           username={user.name}
         />
         {data.laps[0].HEAT_TWO ? (
           <HeaderStat
-            heat={sessionEnumToSessionNr(Session.HEAT_TWO)}
+            heat={sessionEnumToSessionNr(Heat.HEAT_TWO)}
             laps={data.laps.map((e) => e.HEAT_TWO) as number[]}
             username={user.name}
           />
@@ -58,7 +59,7 @@ const PersonalStat = ({ user }: Props) => {
           width={chartWidth}
           height={chartHeight}
           data={
-            data.laps.some((e) => Session.HEAT_TWO in e)
+            data.laps.some((e) => Heat.HEAT_TWO in e)
               ? data.laps
                   .filter((e) => e.HEAT_ONE! < 60)
                   .filter((e) => e.HEAT_TWO! < 60)
@@ -69,14 +70,14 @@ const PersonalStat = ({ user }: Props) => {
           <Line
             type="monotone"
             dot={false}
-            dataKey={Session.HEAT_ONE}
+            dataKey={Heat.HEAT_ONE}
             stroke="#bf84d8"
           />
-          {data.laps.some((e) => Session.HEAT_TWO in e) && (
+          {data.laps.some((e) => Heat.HEAT_TWO in e) && (
             <Line
               dot={false}
               type="monotone"
-              dataKey={Session.HEAT_TWO}
+              dataKey={Heat.HEAT_TWO}
               stroke="#82ca9d"
             />
           )}
