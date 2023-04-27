@@ -29,7 +29,7 @@ const StatsContainer = styled.div`
   align-items: center;
 `;
 
-const PersonalStatsContainer = styled.div`
+export const PersonalStatsContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 1rem;
