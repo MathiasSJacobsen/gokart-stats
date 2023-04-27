@@ -39,14 +39,14 @@ const PersonalStat = ({ user }: Props) => {
           <MySpan>{data.name}</MySpan>
         </Name>
         <HeaderStat
-          heat={sessionEnumToSessionNr(Session.SESSION_ONE)}
-          laps={data.laps.map((e) => e.SESSION_ONE) as number[]}
+          heat={sessionEnumToSessionNr(Session.HEAT_ONE)}
+          laps={data.laps.map((e) => e.HEAT_ONE) as number[]}
           username={user.name}
         />
-        {data.laps[0].SESSION_TWO ? (
+        {data.laps[0].HEAT_TWO ? (
           <HeaderStat
-            heat={sessionEnumToSessionNr(Session.SESSION_TWO)}
-            laps={data.laps.map((e) => e.SESSION_TWO) as number[]}
+            heat={sessionEnumToSessionNr(Session.HEAT_TWO)}
+            laps={data.laps.map((e) => e.HEAT_TWO) as number[]}
             username={user.name}
           />
         ) : (
@@ -58,25 +58,25 @@ const PersonalStat = ({ user }: Props) => {
           width={chartWidth}
           height={chartHeight}
           data={
-            data.laps.some((e) => Session.SESSION_TWO in e)
+            data.laps.some((e) => Session.HEAT_TWO in e)
               ? data.laps
-                  .filter((e) => e.SESSION_ONE! < 60)
-                  .filter((e) => e.SESSION_TWO! < 60)
-              : data.laps.filter((e) => e.SESSION_ONE! < 60)
+                  .filter((e) => e.HEAT_ONE! < 60)
+                  .filter((e) => e.HEAT_TWO! < 60)
+              : data.laps.filter((e) => e.HEAT_ONE! < 60)
           }
           margin={{ top: 5, right: 20, bottom: 5, left: 0 }}
         >
           <Line
             type="monotone"
             dot={false}
-            dataKey={Session.SESSION_ONE}
+            dataKey={Session.HEAT_ONE}
             stroke="#bf84d8"
           />
-          {data.laps.some((e) => Session.SESSION_TWO in e) && (
+          {data.laps.some((e) => Session.HEAT_TWO in e) && (
             <Line
               dot={false}
               type="monotone"
-              dataKey={Session.SESSION_TWO}
+              dataKey={Session.HEAT_TWO}
               stroke="#82ca9d"
             />
           )}

@@ -12,17 +12,17 @@ export const mapLapTimeToNumber = (lapTime: string) => {
 };
 
 export const transformData = (laps: string[], session: Session): ChartType => {
-  const x = session === Session.SESSION_ONE ? 1 : 2;
+  const x = session === Session.HEAT_ONE ? 1 : 2;
   return laps.map((e, i) => {
     if (x === 1) {
       return {
         name: `Lap ${i}`,
-        [Session.SESSION_ONE]: mapLapTimeToNumber(e),
+        [Session.HEAT_ONE]: mapLapTimeToNumber(e),
       };
     } else {
       return {
         name: `Lap ${i}`,
-        [Session.SESSION_TWO]: mapLapTimeToNumber(e),
+        [Session.HEAT_TWO]: mapLapTimeToNumber(e),
       };
     }
   });
@@ -37,18 +37,18 @@ export function transformLapData(data: any[]): SessionData[] {
       const newData: SessionData = {
         name,
         date,
-        laps: transformData(laps, Session.SESSION_ONE),
+        laps: transformData(laps, Session.HEAT_ONE),
       };
       result.push(newData);
     } else {
       const person = result.find((e) => e.name === name) as SessionData;
-      const session_two = transformData(laps, Session.SESSION_TWO);
+      const session_two = transformData(laps, Session.HEAT_TWO);
       const sessions = person.laps.map((e) => {
         const sessionOneValue = session_two.find((n) => n.name === e.name);
         // @TODO: Problem hvis du kjører en mer runde i andre session
         return {
           ...e,
-          SESSION_TWO: sessionOneValue?.SESSION_TWO,
+          SESSION_TWO: sessionOneValue?.HEAT_TWO,
         };
       });
 
@@ -93,9 +93,9 @@ export const getTeamFastestLap = (data: SessionData[]) => {
 
 export const sessionEnumToSessionNr = (s: Session): number => {
   switch (s) {
-    case Session.SESSION_ONE:
+    case Session.HEAT_ONE:
       return 1;
-    case Session.SESSION_TWO:
+    case Session.HEAT_TWO:
       return 2;
     default:
       throw new Error("Invalid session selected");

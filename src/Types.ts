@@ -5,8 +5,8 @@ export type SessionDBData = {
 };
 
 export enum Session {
-  SESSION_ONE = "SESSION_ONE",
-  SESSION_TWO = "SESSION_TWO",
+  HEAT_ONE = "HEAT_ONE",
+  HEAT_TWO = "HEAT_TWO",
 }
 
 export type SessionData = {
@@ -16,7 +16,7 @@ export type SessionData = {
 };
 
 export type ChartType = {
-  [Session.SESSION_ONE]?: number;
-  [Session.SESSION_TWO]?: number;
+  [Session.HEAT_ONE]?: number;
+  [Session.HEAT_TWO]?: number;
   name: string;
 }[];

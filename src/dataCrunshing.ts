@@ -8,8 +8,8 @@ export const getPitstop = (laps: (number | undefined)[]) => {
 export const getFastestLap = (chartData: ChartType) => {
   // @TODO: Fix null assertion
   return [
-    ...chartData.map((e) => e.SESSION_ONE),
-    ...chartData.map((e) => e.SESSION_TWO),
+    ...chartData.map((e) => e.HEAT_ONE),
+    ...chartData.map((e) => e.HEAT_TWO),
   ]
     .filter((val) => val !== undefined)
     .sort((a, b) => a! - b!)
