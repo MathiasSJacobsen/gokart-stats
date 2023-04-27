@@ -12,6 +12,7 @@ const Landing = (props: Props) => {
 
   return (
     <StatsContainer>
+      <p>🐛 Denne siden viser feil om du har kjørt 2 ganger, hvis du er en av de som har kjørt mer enn 1 gang se riktig data i hendholdsvis tab S1 og S2</p>
       <PersonalStatsContainer>
         {data.map((e) => (
           <PersonalStat key={e.name} user={e} />
