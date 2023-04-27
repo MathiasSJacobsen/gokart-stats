@@ -1,6 +1,6 @@
 import { getFastestLap } from "./dataCrunshing";
 import { ChartType, Session, SessionData } from "./Types";
-import db from "./db/db.json";
+import db from "./db/sessionOne.json";
 
 export const mapLapTimeToNumber = (lapTime: string) => {
   if (lapTime.length < 7) {

@@ -10,7 +10,7 @@ import {
 } from "recharts";
 import styled from "styled-components";
 import PersonalStat from "../personalStats/PersonalStat";
-import db from "../db/db.json";
+import db from "../db/sessionOne.json";
 import { getTeamFastestLap, getTeamLapData, transformLapData } from "../utils";
 import { useEffect, useState } from "react";
 import { useWindowSize } from "../hooks/useWindowSize";
