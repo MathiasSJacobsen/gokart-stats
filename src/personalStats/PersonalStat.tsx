@@ -21,7 +21,6 @@ type Props = {
 
 const PersonalStat = ({ user }: Props) => {
   const [data] = useState(user);
-  console.log(data);
 
   const [vertical] = useWindowSize();
   const [chartHeight, setChartHeight] = useState(0);
