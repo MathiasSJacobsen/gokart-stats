@@ -1,8 +1,7 @@
 import { ChartType } from "./Types";
 
-export const getPitstop = (laps: (number | undefined)[]) => {
-  // @TODO: Fix null assertion
-  return laps[0]! > 60 ? laps[0]! : -1;
+export const getPitstop = (laps: number[]) => {
+  return laps[0] > 60 ? laps[0] : -1;
 };
 
 export const getFastestLap = (chartData: ChartType) => {
@@ -16,19 +15,15 @@ export const getFastestLap = (chartData: ChartType) => {
     .at(0)!;
 };
 
-export const getSessionFastestLap = (laps: (number | undefined)[]) => {
-  // @TODO: Fix null assertion
-  return laps
-    .filter((val) => val !== undefined)
-    .sort((a, b) => a! - b!)
-    .at(0)!;
-};
-
-export const getAverageSessionLapTime = (laps: (number | undefined)[]) => {
-  // @TODO: Fix null assertion
+export const getSessionFastestLap = (laps: number[]) => {
   return (
     laps
-      .filter((val) => val !== undefined)!
-      .reduce((pre, val) => pre! + val!, 0)! / laps.length
+      .slice()
+      .sort((a, b) => a - b)
+      .at(0) || -1
   );
+};
+
+export const getAverageHeatLapTime = (laps: number[]) => {
+  return laps.reduce((pre, val) => pre + val, 0) / laps.length;
 };
