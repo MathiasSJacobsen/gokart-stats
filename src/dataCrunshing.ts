@@ -26,9 +26,11 @@ export const getSessionFastestLap = (laps: (number | undefined)[]) => {
 
 export const getAverageSessionLapTime = (laps: (number | undefined)[]) => {
   // @TODO: Fix null assertion
+
+  const lapsWithoutPitstop = laps
+    .filter((val, idx) => idx != 0 || val! < 60)
+    .filter((val) => val !== undefined)!;
   return (
-    laps
-      .filter((val) => val !== undefined)!
-      .reduce((pre, val) => pre! + val!, 0)! / laps.length
-  );
+    lapsWithoutPitstop.reduce((pre, val) => pre! + val!, 0)! 
+    / lapsWithoutPitstop.length);
 };
