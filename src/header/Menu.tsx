@@ -12,6 +12,7 @@ const MenuButton = styled.button`
 
 const MenuList = styled.ul`
   position: absolute;
+  width: 7rem;
   top: 100%;
   left: 0;
   background-color: white;
@@ -56,6 +57,12 @@ const Menu = () => {
           </MenuItem>
           <MenuItem>
             <MenuLink href="/info">Info</MenuLink>
+          </MenuItem>
+          <MenuItem>
+            <MenuLink href="/session/1">Session 1</MenuLink>
+          </MenuItem>
+          <MenuItem>
+            <MenuLink href="/session/2">Session 2</MenuLink>
           </MenuItem>
         </MenuList>
       )}

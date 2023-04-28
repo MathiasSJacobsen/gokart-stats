@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components/macro";
 import {
-  getAverageSessionLapTime,
+  getAverageHeatLapTime,
   getPitstop,
   getSessionFastestLap,
 } from "../dataCrunshing";
@@ -18,7 +18,7 @@ export const HeaderStat = ({ heat, laps }: Props) => {
 
   useEffect(() => {
     setFastestLap(getSessionFastestLap(laps));
-    setAverage(getAverageSessionLapTime(laps));
+    setAverage(getAverageHeatLapTime(laps));
     setPitstop(getPitstop(laps));
   }, [laps]);
 
