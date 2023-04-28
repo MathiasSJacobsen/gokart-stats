@@ -25,5 +25,8 @@ export const getSessionFastestLap = (laps: number[]) => {
 };
 
 export const getAverageHeatLapTime = (laps: number[]) => {
-  return laps.reduce((pre, val) => pre + val, 0) / laps.length;
+  const lapsWithoutPitstop = laps.filter((val, idx) => idx !== 0 || val < 60)
+  return (
+    lapsWithoutPitstop.reduce((pre, val) => pre + val, 0) / lapsWithoutPitstop.length
+    );
 };
