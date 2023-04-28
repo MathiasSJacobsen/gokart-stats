@@ -14,10 +14,10 @@ const PersonalStat = ({ user, name }: Props) => {
 
   const makeHeaderStats = () => {
     let c = 0;
-    return Object.values(user).flatMap((e, i) => {
+    return Object.values(user).flatMap((e) => {
       return (
         <>
-          {e.map((ee, ii) => {
+          {e.map((ee) => {
             c++;
             return <HeaderStat laps={ee} heat={c} />;
           })}
