@@ -1,91 +1,41 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { BsPersonCircle } from "react-icons/bs";
-import {
-  LineChart,
-  Line,
-  Legend,
-  CartesianGrid,
-  XAxis,
-  YAxis,
-  Tooltip,
-} from "recharts";
 import styled from "styled-components/macro";
-import { useWindowSize } from "../hooks/useWindowSize";
-import { SessionData, Heat } from "../Types";
-import { sessionEnumToSessionNr } from "../utils";
+import MultiLineChart from "../shared/MulitlineChart";
 import { HeaderStat } from "./HeaderStat";
 
 type Props = {
-  user: SessionData;
+  user: { [key: number]: number[][] };
+  name: string;
 };
 
-const PersonalStat = ({ user }: Props) => {
+const PersonalStat = ({ user, name }: Props) => {
   const [data] = useState(user);
 
-  const [vertical] = useWindowSize();
-  const [chartHeight, setChartHeight] = useState(0);
-  const [chartWidth, setChartWidth] = useState(0);
-
-  useEffect(() => {
-    setChartHeight(vertical > 767 ? 300 : 200);
-    setChartWidth(vertical > 767 ? 500 : 300);
-  }, [vertical]);
-
+  const makeHeaderStats = () => {
+    let c = 0;
+    return Object.values(user).flatMap((e, i) => {
+      return (
+        <>
+          {e.map((ee) => {
+            c++;
+            return <HeaderStat laps={ee} heat={c} />;
+          })}
+        </>
+      );
+    });
+  };
   return (
     <StatContainer>
       <HeaderContainer>
         <Name>
           <BsPersonCircle />
-          <MySpan>{data.name}</MySpan>
+          <MySpan>{name}</MySpan>
         </Name>
-        <HeaderStat
-          heat={sessionEnumToSessionNr(Heat.HEAT_ONE)}
-          laps={data.laps.map((e) => e.HEAT_ONE) as number[]}
-          username={user.name}
-        />
-        {data.laps[0].HEAT_TWO ? (
-          <HeaderStat
-            heat={sessionEnumToSessionNr(Heat.HEAT_TWO)}
-            laps={data.laps.map((e) => e.HEAT_TWO) as number[]}
-            username={user.name}
-          />
-        ) : (
-          <div></div>
-        )}
+        {makeHeaderStats()}
       </HeaderContainer>
       <ChartContainer>
-        <LineChart
-          width={chartWidth}
-          height={chartHeight}
-          data={
-            data.laps.some((e) => Heat.HEAT_TWO in e)
-              ? data.laps
-                  .filter((e) => e.HEAT_ONE! < 60)
-                  .filter((e) => e.HEAT_TWO! < 60)
-              : data.laps.filter((e) => e.HEAT_ONE! < 60)
-          }
-          margin={{ top: 5, right: 20, bottom: 5, left: 0 }}
-        >
-          <Line
-            type="monotone"
-            dot={false}
-            dataKey={Heat.HEAT_ONE}
-            stroke="#bf84d8"
-          />
-          {data.laps.some((e) => Heat.HEAT_TWO in e) && (
-            <Line
-              dot={false}
-              type="monotone"
-              dataKey={Heat.HEAT_TWO}
-              stroke="#82ca9d"
-            />
-          )}
-          <Legend />
-          <CartesianGrid stroke="#ccc" strokeDasharray="7 7" />
-          <XAxis dataKey="name" />
-          <YAxis label={{ value: "Sec", angle: -90 }} domain={[33]} />
-          <Tooltip />
-        </LineChart>
+        <MultiLineChart data={data} />
       </ChartContainer>
     </StatContainer>
   );
@@ -97,7 +47,7 @@ const HeaderContainer = ({
   children,
   classname,
 }: {
-  children: React.ReactElement[];
+  children: any;
   classname?: string;
 }) => {
   return <StyledContainer className={classname}>{children}</StyledContainer>;

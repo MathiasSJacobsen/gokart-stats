@@ -20,3 +20,9 @@ export type ChartType = {
   [Heat.HEAT_TWO]?: number;
   name: string;
 }[];
+
+export type Res = {
+  [key: string]: {
+    [key: number]: number[][];
+  };
+};

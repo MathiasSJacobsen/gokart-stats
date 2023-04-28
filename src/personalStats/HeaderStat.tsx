@@ -8,11 +8,10 @@ import {
 
 type Props = {
   laps: number[];
-  username: string;
   heat: number;
 };
 
-export const HeaderStat = ({ heat, laps, username }: Props) => {
+export const HeaderStat = ({ heat, laps }: Props) => {
   const [average, setAverage] = useState(0);
   const [fastestLap, setFastestLap] = useState(0);
   const [pitstop, setPitstop] = useState(0);

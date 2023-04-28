@@ -1,5 +1,5 @@
 import { getFastestLap } from "./dataCrunshing";
-import { ChartType, Heat, SessionData } from "./Types";
+import { Heat, Res, SessionData, SessionDBData } from "./Types";
 import db from "./db/sessionOne.json";
 
 export const mapLapTimeToNumber = (lapTime: string) => {
@@ -11,56 +11,49 @@ export const mapLapTimeToNumber = (lapTime: string) => {
   }
 };
 
-export const transformData = (laps: string[], session: Heat): ChartType => {
-  const x = session === Heat.HEAT_ONE ? 1 : 2;
-  return laps.map((e, i) => {
-    if (x === 1) {
-      return {
-        name: `Lap ${i}`,
-        [Heat.HEAT_ONE]: mapLapTimeToNumber(e),
-      };
-    } else {
-      return {
-        name: `Lap ${i}`,
-        [Heat.HEAT_TWO]: mapLapTimeToNumber(e),
-      };
-    }
+export const transformDataToChartData = (dbData: SessionDBData[]) => {
+  const res: { [x: string]: string | number; name: string }[][] = [];
+  dbData.forEach((e) => {
+    let i = 1;
+    res.forEach((da) => {
+      const t = Object.keys(da[0]).filter((t) => t !== "name");
+      if (t.length >= 1) {
+        console.log(t.at(t.length - 1)?.at(-1));
+
+        const undefinedKanskje = t.at(t.length - 1)!.at(t.length - 1);
+        i = undefinedKanskje ? parseInt(undefinedKanskje) + 1 : 1; // denne burde være regex som fjerner bokstaver
+      }
+    });
+    res.push(
+      e.laps.map((lap) => {
+        return {
+          name: e.name,
+          [`value${i}`]: mapLapTimeToNumber(lap.toString()),
+        };
+      })
+    );
   });
 };
 
-export function transformLapData(data: any[]): SessionData[] {
-  let result: SessionData[] = [];
+export function transformLapData(data: any[]) {
+  const dateMap: { [key: string]: number } = { "21/3/23": 0, "25/4/23": 1 };
+
+  const result2: Res = {};
   data.forEach((item) => {
     const { name, date, laps } = item;
 
-    if (result.length === 0 || !result.some((e) => e.name === name)) {
-      const newData: SessionData = {
-        name,
-        date,
-        laps: transformData(laps, Heat.HEAT_ONE),
-      };
-      result.push(newData);
-    } else {
-      const person = result.find((e) => e.name === name) as SessionData;
-      const session_two = transformData(laps, Heat.HEAT_TWO);
-      const sessions = person.laps.map((e) => {
-        const sessionOneValue = session_two.find((n) => n.name === e.name);
-        // @TODO: Problem hvis du kjører en mer runde i andre session
-        return {
-          ...e,
-          HEAT_TWO: sessionOneValue?.HEAT_TWO,
-        };
-      });
-
-      const newData: SessionData = {
-        ...person,
-        laps: sessions,
-      };
-      result = result.map((e) => (e.name === name ? newData : e));
+    if (!result2.hasOwnProperty(name)) {
+      result2[name] = {};
     }
+
+    if (!result2[name].hasOwnProperty(dateMap[date])) {
+      result2[name][dateMap[date]] = [];
+    }
+
+    result2[name][dateMap[date]].push(laps.map(mapLapTimeToNumber));
   });
 
-  return result;
+  return result2;
 }
 
 export const getTeamLapData = () => {

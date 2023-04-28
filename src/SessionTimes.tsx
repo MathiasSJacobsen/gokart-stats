@@ -1,15 +1,13 @@
 import styled from "styled-components/macro";
 import dbOne from "./db/sessionOne.json";
 import dbTwo from "./db/sessionTwo.json";
-import TeamStat from "./teamStat/TeamStat";
 import { transformLapData } from "./utils";
 import { useEffect, useState } from "react";
-import { SessionData } from "./Types";
 import { PersonalStatsContainer } from "./landing/Landing";
 import PersonalStat from "./personalStats/PersonalStat";
 
 const SessionTimes = ({ nr }: { nr: number }) => {
-  const [data, setData] = useState<SessionData[]>();
+  const [data, setData] = useState<any>();
 
   useEffect(() => {
     setData(nr === 1 ? transformLapData(dbOne) : transformLapData(dbTwo));
@@ -17,10 +15,9 @@ const SessionTimes = ({ nr }: { nr: number }) => {
   if (!data) return null;
   return (
     <StatsContainer>
-      {nr === 1 ? <TeamStat data={data} /> : null}
       <PersonalStatsContainer>
-        {data.map((e) => (
-          <PersonalStat key={e.name} user={e} />
+        {Object.keys(data).map((e: string) => (
+          <PersonalStat key={e} name={e} user={data[e]} />
         ))}
       </PersonalStatsContainer>
     </StatsContainer>
