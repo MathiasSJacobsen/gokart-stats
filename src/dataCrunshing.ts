@@ -22,7 +22,7 @@ export const getSessionFastestLap = (laps: number[]) => {
       .sort((a, b) => a - b)
       .at(0) || -1
   );
-}
+};
 
 export const getAverageHeatLapTime = (laps: number[]) => {
   const lapsWithoutPitstop = laps.filter((val, idx) => idx != 0 || val! < 60)
