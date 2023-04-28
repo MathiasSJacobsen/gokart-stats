@@ -24,12 +24,6 @@ export const getSessionFastestLap = (laps: number[]) => {
   );
 }
 
-export const getAverageSessionLapTime = (laps: (number | undefined)[]) => {
-  // @TODO: Fix null assertion
-
-  
-};
-
 export const getAverageHeatLapTime = (laps: number[]) => {
   const lapsWithoutPitstop = laps.filter((val, idx) => idx != 0 || val! < 60)
   return (
