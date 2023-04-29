@@ -10,30 +10,6 @@ export const mapLapTimeToNumber = (lapTime: string) => {
   }
 };
 
-export const transformDataToChartData = (dbData: SessionDBData[]) => {
-  const res: { [x: string]: string | number; name: string }[][] = [];
-  dbData.forEach((e) => {
-    let i = 1;
-    res.forEach((da) => {
-      const t = Object.keys(da[0]).filter((t) => t !== "name");
-      if (t.length >= 1) {
-        console.log(t.at(t.length - 1)?.at(-1));
-
-        const undefinedKanskje = t.at(t.length - 1)!.at(t.length - 1);
-        i = undefinedKanskje ? parseInt(undefinedKanskje) + 1 : 1; // denne burde være regex som fjerner bokstaver
-      }
-    });
-    res.push(
-      e.laps.map((lap) => {
-        return {
-          name: e.name,
-          [`value${i}`]: mapLapTimeToNumber(lap.toString()),
-        };
-      })
-    );
-  });
-};
-
 export function transformLapData(data: SessionDBData[]) {
   const dateMap: { [key: string]: number } = { "21/3/23": 0, "25/4/23": 1 };
 
