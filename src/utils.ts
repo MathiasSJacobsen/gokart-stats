@@ -31,7 +31,7 @@ export function transformLapData(data: SessionDBData[]) {
   return result2;
 }
 
-export const getTeamLapData = () => {
+export const getTeamLapData = (data: Res) => {
   let c = -1;
   return db.flatMap((e) => {
     const times = e.laps.map(mapLapTimeToNumber);

@@ -5,6 +5,7 @@ import dbTwo from "../db/sessionTwo.json";
 
 import { transformLapData } from "../utils";
 import { Res } from "../Types";
+import TeamStat from "../teamStat/TeamStat";
 
 type Props = {};
 
@@ -13,6 +14,7 @@ const Landing = (props: Props) => {
 
   return (
     <StatsContainer>
+      <TeamStat data={data} />
       <PersonalStatsContainer>
         {Object.keys(data).map((e: string) => (
           <PersonalStat name={e} key={e} user={data[e]} />
