@@ -1,5 +1,4 @@
-import { getFastestLap } from "./dataCrunshing";
-import { Heat, Res, SessionData, SessionDBData } from "./Types";
+import { Heat, Res, SessionDBData } from "./Types";
 import db from "./db/sessionOne.json";
 
 export const mapLapTimeToNumber = (lapTime: string) => {
@@ -35,7 +34,7 @@ export const transformDataToChartData = (dbData: SessionDBData[]) => {
   });
 };
 
-export function transformLapData(data: any[]) {
+export function transformLapData(data: SessionDBData[]) {
   const dateMap: { [key: string]: number } = { "21/3/23": 0, "25/4/23": 1 };
 
   const result2: Res = {};
@@ -70,16 +69,19 @@ export const getTeamLapData = () => {
   });
 };
 
-export const getTeamFastestLap = (data: SessionData[]) => {
-  let best: { time: number; name: string } = { name: "test", time: 1000 };
-  data.forEach((e) => {
-    const fastest = getFastestLap(e.laps);
-    if (!best || best.time > fastest) {
-      best = {
-        name: e.name,
-        time: fastest,
-      };
-    }
+export const getTeamFastestLap = (data: Res) => {
+  let best: { time: number; name: string } = { name: "Null", time: 10000 };
+  Object.keys(data).forEach((element) => {
+    Object.keys(data[element]).forEach((e) =>
+      data[element][parseInt(e)].forEach((arr) =>
+        arr.forEach((nr) => {
+          if (best === undefined || best.time > nr) {
+            best.name = element;
+            best.time = nr;
+          }
+        })
+      )
+    );
   });
   return best;
 };

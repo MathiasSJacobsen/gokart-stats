@@ -12,9 +12,9 @@ import styled from "styled-components/macro";
 import { getTeamFastestLap, getTeamLapData } from "../utils";
 import { useState, useEffect } from "react";
 import { useWindowSize } from "../hooks/useWindowSize";
-import { SessionData } from "../Types";
+import { Res } from "../Types";
 
-const TeamStat = ({ data }: { data: SessionData[] }) => {
+const TeamStat = ({ data }: { data: Res }) => {
   const [windowWidth] = useWindowSize();
   const [chartWidth, setChartWidth] = useState(0);
 
@@ -27,7 +27,6 @@ const TeamStat = ({ data }: { data: SessionData[] }) => {
     <TeamContainer>
       <TeamStats>
         <span>{`Best lap: ${bestTeamLap.name} \u2014  ${bestTeamLap.time}`}</span>
-        <span>{`Number of laps: 196`}</span>
       </TeamStats>
 
       <LineChart
@@ -40,7 +39,11 @@ const TeamStat = ({ data }: { data: SessionData[] }) => {
         <Legend />
         <CartesianGrid stroke="#ccc" strokeDasharray="7 7" />
         <XAxis dataKey="name" />
-        <YAxis label={{ value: "Sec", angle: -90 }} domain={[32]} />
+        <YAxis
+          label={{ value: "Sec", angle: -90 }}
+          domain={[31, 40]}
+          allowDataOverflow={true}
+        />
         <Tooltip />
         <Brush />
       </LineChart>

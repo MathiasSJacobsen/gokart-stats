@@ -1,7 +1,7 @@
 export type SessionDBData = {
   date: string;
   name: string;
-  laps: string[] | number[];
+  laps: string[];
 };
 
 export enum Heat {
