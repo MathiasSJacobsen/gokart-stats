@@ -1,4 +1,4 @@
-import { Heat, Res, SessionDBData } from "./Types";
+import { Res, SessionDBData } from "./Types";
 import db from "./db/sessionOne.json";
 
 export const mapLapTimeToNumber = (lapTime: string) => {
@@ -60,15 +60,4 @@ export const getTeamFastestLap = (data: Res) => {
     );
   });
   return best;
-};
-
-export const sessionEnumToSessionNr = (s: Heat): number => {
-  switch (s) {
-    case Heat.HEAT_ONE:
-      return 1;
-    case Heat.HEAT_TWO:
-      return 2;
-    default:
-      throw new Error("Invalid session selected");
-  }
 };
