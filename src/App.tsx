@@ -5,6 +5,7 @@ import Information from "./information/Information";
 import Landing from "./landing/Landing";
 import { NotFoundPage } from "./NotFoundPage";
 import SessionTimes from "./SessionTimes";
+import Utfordringen from "./Utfordringen";
 
 function App() {
   return (
@@ -17,7 +18,8 @@ function App() {
         <Route path="/" element={<Landing />} />
         <Route path="/info" element={<Information />} />
         <Route path="/session/1" element={<SessionTimes nr={1} />} />
-        <Route path="/session/2" element={<SessionTimes nr={2} />} />x
+        <Route path="/session/2" element={<SessionTimes nr={2} />} />
+        <Route path="/utfordringen" element={<Utfordringen />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </div>

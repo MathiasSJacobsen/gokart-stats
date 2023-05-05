@@ -64,6 +64,9 @@ const Menu = () => {
           <MenuItem>
             <MenuLink href="/session/2">Session 2</MenuLink>
           </MenuItem>
+          <MenuItem>
+            <MenuLink href="/utfordringen">Utfordringen</MenuLink>
+          </MenuItem>
         </MenuList>
       )}
     </MenuContainer>

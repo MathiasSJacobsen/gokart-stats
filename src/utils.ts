@@ -11,7 +11,11 @@ export const mapLapTimeToNumber = (lapTime: string) => {
 };
 
 export function transformLapData(data: SessionDBData[]) {
-  const dateMap: { [key: string]: number } = { "21/3/23": 0, "25/4/23": 1 };
+  const dateMap: { [key: string]: number } = {
+    "21/3/23": 0,
+    "25/4/23": 1,
+    "2/5/23": 99,
+  };
 
   const result2: Res = {};
   data.forEach((item) => {
