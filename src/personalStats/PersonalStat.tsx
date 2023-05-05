@@ -7,9 +7,10 @@ import { HeaderStat } from "./HeaderStat";
 type Props = {
   user: { [key: number]: number[][] };
   name: string;
+  domain?: number[];
 };
 
-const PersonalStat = ({ user, name }: Props) => {
+const PersonalStat = ({ user, name, domain }: Props) => {
   const [data] = useState(user);
 
   const makeHeaderStats = () => {
@@ -35,7 +36,7 @@ const PersonalStat = ({ user, name }: Props) => {
         {makeHeaderStats()}
       </HeaderContainer>
       <ChartContainer>
-        <MultiLineChart data={data} />
+        <MultiLineChart data={data} domain={domain} />
       </ChartContainer>
     </StatContainer>
   );

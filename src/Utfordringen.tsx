@@ -19,7 +19,7 @@ const Utfordringen = () => {
       </p>
       <PersonalStatsContainer>
         {Object.keys(data).map((e: string) => (
-          <PersonalStat key={e} name={e} user={data[e]} />
+          <PersonalStat key={e} name={e} user={data[e]} domain={[31, 48]} />
         ))}
       </PersonalStatsContainer>
     </StatsContainer>

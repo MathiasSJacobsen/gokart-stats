@@ -13,6 +13,7 @@ import { useWindowSize } from "../hooks/useWindowSize";
 interface Props {
   data: { [key: number]: number[][] };
   colors?: string[];
+  domain?: number[];
 }
 
 interface Point {
@@ -23,7 +24,8 @@ interface Point {
 
 const MultiLineChart: React.FC<Props> = ({
   data,
-  colors = ["#82ca9d", "#bf84d8"],
+  colors = ["#82ca9d", "#bf84d8", "#d9be48"],
+  domain = [31, 40],
 }) => {
   const [chartData, setChartData] = useState<Point[]>();
 
@@ -86,7 +88,7 @@ const MultiLineChart: React.FC<Props> = ({
       <XAxis dataKey="name" />
       <YAxis
         label={{ value: "Sec", angle: -90 }}
-        domain={[31, 40]}
+        domain={domain}
         allowDataOverflow={true}
       />
       <Legend />
@@ -99,7 +101,7 @@ const MultiLineChart: React.FC<Props> = ({
             key={i}
             dataKey={`heat${i + 1}`}
             type="monotone"
-            stroke={colors[i % 2]}
+            stroke={colors[i % colors.length]}
           />
         ))}
     </LineChart>
