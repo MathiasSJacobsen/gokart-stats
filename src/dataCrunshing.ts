@@ -1,5 +1,5 @@
 export const getPitstop = (laps: number[]) => {
-  return laps[0] > 60 ? laps[0] : -1;
+  return laps[0] > 60 ? laps[0] : 0;
 };
 
 export const getSessionFastestLap = (laps: number[]) => {
@@ -12,8 +12,9 @@ export const getSessionFastestLap = (laps: number[]) => {
 };
 
 export const getAverageHeatLapTime = (laps: number[]) => {
-  const lapsWithoutPitstop = laps.filter((val, idx) => idx !== 0 || val < 60)
+  const lapsWithoutPitstop = laps.filter((val, idx) => idx !== 0 || val < 60);
   return (
-    lapsWithoutPitstop.reduce((pre, val) => pre + val, 0) / lapsWithoutPitstop.length
-    );
+    lapsWithoutPitstop.reduce((pre, val) => pre + val, 0) /
+    lapsWithoutPitstop.length
+  );
 };

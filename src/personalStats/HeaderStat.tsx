@@ -29,7 +29,7 @@ export const HeaderStat = ({ heat, laps }: Props) => {
         <MetaStat>
           <KeyStat>Best lap: {fastestLap}</KeyStat>
           <KeyStat>Average: {average.toFixed(3)}</KeyStat>
-          <KeyStat>Pitstop: {pitstop}</KeyStat>
+          {pitstop !== 0 ? <KeyStat>Pitstop: {pitstop}</KeyStat> : null}
         </MetaStat>
       </SessionData>
     </HeaderStats>
