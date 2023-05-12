@@ -67,6 +67,9 @@ const Menu = () => {
           <MenuItem>
             <MenuLink href="/utfordringen">Utfordringen</MenuLink>
           </MenuItem>
+          <MenuItem>
+            <MenuLink href="/hi">Beste tider</MenuLink>
+          </MenuItem>
         </MenuList>
       )}
     </MenuContainer>

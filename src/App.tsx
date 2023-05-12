@@ -6,6 +6,7 @@ import Landing from "./landing/Landing";
 import { NotFoundPage } from "./NotFoundPage";
 import SessionTimes from "./SessionTimes";
 import Utfordringen from "./Utfordringen";
+import BestLapTable from "./bestLapTable/BestLapTable";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/session/1" element={<SessionTimes nr={1} />} />
         <Route path="/session/2" element={<SessionTimes nr={2} />} />
         <Route path="/utfordringen" element={<Utfordringen />} />
+        <Route path="/hi" element={<BestLapTable />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </div>
