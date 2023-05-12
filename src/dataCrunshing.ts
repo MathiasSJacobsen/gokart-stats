@@ -2,7 +2,7 @@ export const getPitstop = (laps: number[]) => {
   return laps[0] > 60 ? laps[0] : 0;
 };
 
-export const getSessionFastestLap = (laps: number[]) => {
+export const getHeatFastestLap = (laps: number[]) => {
   return (
     laps
       .slice()
