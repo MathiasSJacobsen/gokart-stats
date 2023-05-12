@@ -1,5 +1,25 @@
 import { Res, SessionDBData } from "./Types";
-import db from "./db/sessionOne.json";
+import dbOne from "./db/sessionOne.json";
+import dbTwo from "./db/sessionTwo.json";
+
+export const getDateMap = (): { [key: string]: number } => {
+  return {
+    "21/3/23": 0,
+    "25/4/23": 1,
+    "2/5/23": 99, // utfordringen
+  };
+};
+
+export const getDb = (session: number) => {
+  switch (session) {
+    case 1:
+      return dbOne;
+    case 2:
+      return dbTwo;
+    default:
+      throw Error("Not implemented");
+  }
+};
 
 export const mapLapTimeToNumber = (lapTime: string) => {
   if (lapTime.length < 7) {
@@ -11,12 +31,7 @@ export const mapLapTimeToNumber = (lapTime: string) => {
 };
 
 export function transformLapData(data: SessionDBData[]) {
-  const dateMap: { [key: string]: number } = {
-    "21/3/23": 0,
-    "25/4/23": 1,
-    "2/5/23": 99,
-  };
-
+  const dateMap = getDateMap();
   const result2: Res = {};
   data.forEach((item) => {
     const { name, date, laps } = item;
@@ -37,7 +52,7 @@ export function transformLapData(data: SessionDBData[]) {
 
 export const getTeamLapData = (data: Res) => {
   let c = -1;
-  return db.flatMap((e) => {
+  return dbOne.flatMap((e) => {
     const times = e.laps.map(mapLapTimeToNumber);
     return times.map((m) => {
       c += 1;

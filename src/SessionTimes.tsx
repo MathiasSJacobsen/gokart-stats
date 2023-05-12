@@ -1,20 +1,12 @@
 import styled from "styled-components/macro";
-import dbOne from "./db/sessionOne.json";
-import dbTwo from "./db/sessionTwo.json";
-import { transformLapData } from "./utils";
-import { useEffect, useState } from "react";
+import { getDb, transformLapData } from "./utils";
 import { PersonalStatsContainer } from "./landing/Landing";
 import PersonalStat from "./personalStats/PersonalStat";
 import TeamStat from "./teamStat/TeamStat";
-import { Res } from "./Types";
 
 const SessionTimes = ({ nr }: { nr: number }) => {
-  const [data, setData] = useState<Res>();
+  const data = transformLapData(getDb(nr));
 
-  useEffect(() => {
-    setData(nr === 1 ? transformLapData(dbOne) : transformLapData(dbTwo));
-  }, [nr]);
-  if (!data) return null;
   return (
     <StatsContainer>
       <TeamStat data={data} />
