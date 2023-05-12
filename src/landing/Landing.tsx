@@ -1,16 +1,14 @@
 import styled from "styled-components";
 import PersonalStat from "../personalStats/PersonalStat";
-import dbOne from "../db/sessionOne.json";
-import dbTwo from "../db/sessionTwo.json";
 
-import { transformLapData } from "../utils";
+import { getDb, transformLapData } from "../utils";
 import { Res } from "../Types";
 import TeamStat from "../teamStat/TeamStat";
 
 type Props = {};
 
 const Landing = (props: Props) => {
-  const data: Res = transformLapData([...dbOne, ...dbTwo]);
+  const data: Res = transformLapData(getDb());
 
   return (
     <StatsContainer>

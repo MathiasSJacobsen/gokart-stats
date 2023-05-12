@@ -9,15 +9,19 @@ export const getDateMap = (): { [key: string]: number } => {
     "2/5/23": 99, // utfordringen
   };
 };
-
-export const getDb = (session: number) => {
+/**
+ * Get database
+ * @param session session number
+ * @returns Returns the spesified session database, if none is given then returns all session data as a database
+ */
+export const getDb = (session?: number) => {
   switch (session) {
     case 1:
       return dbOne;
     case 2:
       return dbTwo;
     default:
-      throw Error("Not implemented");
+      return [...dbOne, ...dbTwo];
   }
 };
 
