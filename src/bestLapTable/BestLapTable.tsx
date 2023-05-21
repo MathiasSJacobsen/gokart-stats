@@ -96,6 +96,9 @@ const Container = styled.div`
   padding: 0 20%;
   display: flex;
   flex-direction: column;
+  @media (max-width: 767px) {
+    padding: 0 5%;
+  }
 `;
 const ListItem = styled.div<{ bold?: boolean }>`
   display: flex;
@@ -109,6 +112,9 @@ const NumberContainer = styled.div`
   width: 20%;
   display: flex;
   justify-content: space-between;
+  @media (max-width: 767px) {
+    width: 6rem;
+  }
 `;
 
 const Name = styled.span`
