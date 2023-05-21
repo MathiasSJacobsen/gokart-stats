@@ -21,6 +21,10 @@ const MenuList = styled.ul`
   list-style: none;
   margin: 0;
   z-index: 2;
+  @media (max-width: 767px) {
+    left: -2.5rem;
+    width: 6rem;
+  }
 `;
 
 const MenuItem = styled.li`

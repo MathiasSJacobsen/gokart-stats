@@ -24,6 +24,5 @@ const TeamContainer = styled.div`
 const TeamStats = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 0 0 0 4rem;
   margin-bottom: 0.5rem;
 `;
