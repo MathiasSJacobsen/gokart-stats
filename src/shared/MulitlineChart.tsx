@@ -25,7 +25,7 @@ interface Point {
 const MultiLineChart: React.FC<Props> = ({
   data,
   colors = ["#82ca9d", "#bf84d8", "#d9be48"],
-  domain = [31, 40],
+  domain = [30, 40],
 }) => {
   const [chartData, setChartData] = useState<Point[]>();
 

@@ -1,11 +1,13 @@
 import { Res, SessionDBData } from "./Types";
 import dbOne from "./db/sessionOne.json";
 import dbTwo from "./db/sessionTwo.json";
+import dbThree from "./db/sessionThree.json";
 
 export const getDateMap = (): { [key: string]: number } => {
   return {
     "21/3/23": 0,
     "25/4/23": 1,
+    "23/5/23": 2,
     "2/5/23": 99, // utfordringen
   };
 };
@@ -20,8 +22,10 @@ export const getDb = (session?: number) => {
       return dbOne;
     case 2:
       return dbTwo;
+    case 3:
+      return dbThree;
     default:
-      return [...dbOne, ...dbTwo];
+      return [...dbOne, ...dbTwo, ...dbThree];
   }
 };
 
