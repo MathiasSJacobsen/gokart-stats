@@ -21,6 +21,7 @@ function App() {
         <Route path="/session/1" element={<SessionTimes nr={1} />} />
         <Route path="/session/2" element={<SessionTimes nr={2} />} />
         <Route path="/session/3" element={<SessionTimes nr={3} />} />
+        <Route path="/session/7" element={<SessionTimes nr={7} />} />
         <Route path="/utfordringen" element={<Utfordringen />} />
         <Route path="/hi" element={<BestLapTable />} />
         <Route path="*" element={<NotFoundPage />} />

@@ -1,5 +1,5 @@
 export const getPitstop = (laps: number[]) => {
-  return laps[0] > 60 ? laps[0] : 0;
+  return laps[0] > 50 ? laps[0] : 0;
 };
 
 export const getHeatFastestLap = (laps: number[]) => {

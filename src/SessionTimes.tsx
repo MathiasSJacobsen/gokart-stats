@@ -6,6 +6,7 @@ import TeamStat from "./teamStat/TeamStat";
 
 const SessionTimes = ({ nr }: { nr: number }) => {
   const data = transformLapData(getDb(nr));
+  console.log(data);
 
   return (
     <StatsContainer>
