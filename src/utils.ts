@@ -3,6 +3,8 @@ import dbOne from "./db/sessionOne.json";
 import dbTwo from "./db/sessionTwo.json";
 import dbThree from "./db/sessionThree.json";
 import dbSeven from "./db/sessionSeven.json";
+import dbEight from "./db/sessionEight.json";
+import dbNine from "./db/sessionNine.json";
 
 export const getDateMap = (): { [key: string]: number } => {
   return {
@@ -10,6 +12,8 @@ export const getDateMap = (): { [key: string]: number } => {
     "25/4/23": 1,
     "23/5/23": 2,
     "06/9/23": 7,
+    "10/10/23": 8,
+    "17/10/23": 9,
     "2/5/23": 99, // utfordringen
   };
 };
@@ -28,8 +32,19 @@ export const getDb = (session?: number) => {
       return dbThree;
     case 7:
       return dbSeven;
+    case 8:
+      return dbEight;
+    case 9:
+      return dbNine;
     default:
-      return [...dbOne, ...dbTwo, ...dbThree, ...dbSeven];
+      return [
+        ...dbOne,
+        ...dbTwo,
+        ...dbThree,
+        ...dbSeven,
+        ...dbEight,
+        ...dbNine,
+      ];
   }
 };
 
